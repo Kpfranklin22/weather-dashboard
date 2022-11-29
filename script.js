@@ -1,6 +1,6 @@
 var searchBtn = document.getElementById("searchBtn");
 var searchInput = document.getElementById("searchInput");
-var apiKey = "8a42d43f7d7dc180da5b1e51890e67dc";
+var apiKey = "ae8dc33d91f6926ff7f6df500e291f80";
 var cityName = document.getElementById("cityName");
 var temp = document.getElementById("temp");
 var humidity = document.getElementById("humidity");
@@ -28,6 +28,7 @@ function getCity() {
     .then((data) => {
       console.log(data);
       displayCurrentWeather(data);
+      saveToLS(data);
     });
 
   fetch(forecastUrl)
@@ -41,37 +42,60 @@ function getCity() {
 }
 // need to make current variables
 function displayCurrentWeather(data) {
-  var kelvin = data.main.temp;
-  var fahrenheit = 1.8 * (kelvin - 273) + 32;
-  var iconCode = data.weather[0].icon;
-  var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-  cityName.textContent = data.name + " " + dayjs().format("MM/DD/YYYY");
+  let kelvin = data.main.temp;
+  let fahrenheit = 1.8 * (kelvin - 273) + 32;
+  let iconCode = data.weather[0].icon;
+  let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+  cityName.textContent = data.name + " " + dayjs().format("ddd MM/DD/YYYY");
   temp.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
   humidity.textContent = "Humidity: " + data.main.humidity + " %";
   wind.textContent = "wind: " + data.wind.speed + " MPH";
   $("#weatherIcon").attr("src", iconUrl);
-};
+}
 // need to make future variables
 function displayForecastWeather(data) {
-    var kelvin = data.main.temp;
-    var fahrenheit = 1.8 * (kelvin - 273) + 32;
-    var iconCode = data.weather[0].icon;
-    var iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
-    cityName.textContent = data.name + " " + dayjs().format("MM/DD/YYYY");
-    temp.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
-    humidity.textContent = "Humidity: " + data.main.humidity + " %";
-    wind.textContent = "wind: " + data.wind.speed + " MPH";
-    $("#weatherIcon").attr("src", iconUrl);
+  for (i = 6; i <= 38; i += 8) {
+    let kelvin = data.list[i].main.temp;
+    let fahrenheit = 1.8 * (kelvin - 273) + 32;
+    let iconCode = data.list[i].weather[0].icon;
+    let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
 
+    let dateEl = document.createElement("li");
+    let tempEl = document.createElement("li");
+    let iconEl = document.createElement("img");
+    let windEl = document.createElement("li");
+    let humidityEl = document.createElement("li");
+
+    let dateString = data.list[i].dt_txt;
+    let date = moment(dateString);
+
+    dateEl.textContent = date.format("ddd MM/DD/YYYY");
+    tempEl.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
+    iconEl.setAttribute("src", iconUrl);
+    windEl.textContent = "wind: " + data.list[i].wind.speed + " MPH";
+    humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+
+    $("#forecast" + i).append(dateEl);
+    $("#forecast" + i).append(tempEl);
+    $("#forecast" + i).append(iconEl);
+    $("#forecast" + i).append(windEl);
+    $("#forecast" + i).append(humidityEl);
+  }
 }
-function saveToLS() {}
-function loadFromLS() {}
+
+function saveToLS(data) {
+  localStorage.setItem(data.name, data.name);
+  const historyButton = document.getElementById("history");
+  const btn = document.createElement("BUTTON");
+  btn.innerHTML = data.name;
+  historyButton.appendChild(btn);
+}
+function loadFromLS() {
+  searchInput.value(localStorage.getItem(data.main, data.main));
+}
 function createHistroyBtn() {}
 
 //event listeners
 
+historyButton.addEventListener("click", saveToLS, useCapture);
 searchBtn.addEventListener("click", getCity);
-
-
-
-// 
