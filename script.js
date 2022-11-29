@@ -86,7 +86,7 @@ function displayForecastWeather(data) {
 function saveToLS(data) {
   localStorage.setItem(data.name, data.name);
   const historyButton = document.getElementById("history");
-  const btn = document.createElement("BUTTON");
+  const btn = document.createElement("button");
   btn.innerHTML = data.name;
   historyButton.appendChild(btn);
 }
@@ -97,5 +97,5 @@ function createHistroyBtn() {}
 
 //event listeners
 
-historyButton.addEventListener("click", saveToLS, useCapture);
+//historyButton.addEventListener("click", saveToLS, useCapture);
 searchBtn.addEventListener("click", getCity);
