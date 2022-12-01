@@ -1,3 +1,5 @@
+// Variables
+
 var searchBtn = document.getElementById("searchBtn");
 var historyBtn = document.getElementById("historyBtn");
 var historyContainer = document.getElementById("history");
@@ -8,8 +10,8 @@ var temp = document.getElementById("temp");
 var humidity = document.getElementById("humidity");
 var wind = document.getElementById("wind");
 
-// functions
-
+// Functions
+// This uses server-side API's to grab information from other websites for weather info for different Cities
 function getCity() {
   var city = searchInput.value;
   var currentUrl =
@@ -44,7 +46,7 @@ function getCity() {
       displayForecastWeather(data);
     });
 }
-// need to make current variables
+// This takes the information gathered by server side APIs and shows it more legibly , also converts Kelvin to Fahrenheit
 function displayCurrentWeather(data) {
   let kelvin = data.main.temp;
   let fahrenheit = 1.8 * (kelvin - 273) + 32;
@@ -56,7 +58,7 @@ function displayCurrentWeather(data) {
   wind.textContent = "wind: " + data.wind.speed + " MPH";
   $("#weatherIcon").attr("src", iconUrl);
 }
-// need to make future variables
+// This takes the server side information gathered by server side APIs. shows it legibly, dynamically adds elements"
 function displayForecastWeather(data) {
   for (i = 6; i <= 38; i += 8) {
     let kelvin = data.list[i].main.temp;
@@ -86,23 +88,22 @@ function displayForecastWeather(data) {
     $("#forecast" + i).append(humidityEl);
   }
 }
-
+// This is to save information on local storage
 function saveToLS(data) {
   localStorage.setItem(data.name, data.name);
 }
-
+// This creates a button to show cities you've previously searched
 function createHistoryBtn() {
   for (var i = 0; i < localStorage.length; i++) {
     const btn = document.createElement("button");
-    btn.setAttribute("class", "historyBtn");
+    btn.setAttribute("class", "historyBtn btn btn-dark");
     btn.setAttribute("id", localStorage.getItem(localStorage.key(i)));
     btn.innerHTML = localStorage.getItem(localStorage.key(i));
     historyContainer.appendChild(btn);
   }
 }
 
-// event listeners
-
+// Event Listeners
 historyContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("historyBtn")) {
     searchInput.value = e.target.innerHTML;
