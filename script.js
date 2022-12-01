@@ -85,17 +85,22 @@ function displayForecastWeather(data) {
 
 function saveToLS(data) {
   localStorage.setItem(data.name, data.name);
-  const historyButton = document.getElementById("history");
-  const btn = document.createElement("button");
-  btn.innerHTML = data.name;
-  historyButton.appendChild(btn);
 }
+
 function loadFromLS() {
   searchInput.value(localStorage.getItem(data.main, data.main));
 }
-function createHistroyBtn() {}
+
+function createHistoryBtn() {
+  for (var i = 0; i < localStorage.length; i++) {
+    const historyButton = document.getElementById("history");
+    const btn = document.createElement("button");
+    btn.setAttribute("id", "btn");
+    btn.innerHTML = localStorage.getItem(localStorage.key(i));
+    historyButton.appendChild(btn);
+  }
+}
 
 //event listeners
 
-//historyButton.addEventListener("click", saveToLS, useCapture);
 searchBtn.addEventListener("click", getCity);
