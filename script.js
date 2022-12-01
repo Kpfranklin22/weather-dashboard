@@ -1,4 +1,6 @@
 var searchBtn = document.getElementById("searchBtn");
+var historyBtn = document.getElementById("historyBtn");
+var historyContainer = document.getElementById("history");
 var searchInput = document.getElementById("searchInput");
 var apiKey = "ae8dc33d91f6926ff7f6df500e291f80";
 var cityName = document.getElementById("cityName");
@@ -29,6 +31,8 @@ function getCity() {
       console.log(data);
       displayCurrentWeather(data);
       saveToLS(data);
+      $(".historyBtn").remove();
+      createHistoryBtn();
     });
 
   fetch(forecastUrl)
@@ -87,20 +91,23 @@ function saveToLS(data) {
   localStorage.setItem(data.name, data.name);
 }
 
-function loadFromLS() {
-  searchInput.value(localStorage.getItem(data.main, data.main));
-}
-
 function createHistoryBtn() {
   for (var i = 0; i < localStorage.length; i++) {
-    const historyButton = document.getElementById("history");
     const btn = document.createElement("button");
-    btn.setAttribute("id", "btn");
+    btn.setAttribute("class", "historyBtn");
+    btn.setAttribute("id", localStorage.getItem(localStorage.key(i)));
     btn.innerHTML = localStorage.getItem(localStorage.key(i));
-    historyButton.appendChild(btn);
+    historyContainer.appendChild(btn);
   }
 }
 
-//event listeners
+// event listeners
+
+historyContainer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("historyBtn")) {
+    searchInput.value = e.target.innerHTML;
+    getCity();
+  }
+});
 
 searchBtn.addEventListener("click", getCity);
