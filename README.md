@@ -5,7 +5,7 @@
 This is a website that shows your current or local weather forecast 
 so you can plan around the weather!
 
-Deployed Website:
+Deployed Website: https://kpfranklin22.github.io/weather-dashboard/
 
 ## Usage
 
