@@ -89,8 +89,8 @@ function displayForecastWeather(data) {
     humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
 
     $("#forecast" + i).append(dateEl);
-    $("#forecast" + i).append(tempEl);
     $("#forecast" + i).append(iconEl);
+    $("#forecast" + i).append(tempEl);
     $("#forecast" + i).append(windEl);
     $("#forecast" + i).append(humidityEl);
   }
