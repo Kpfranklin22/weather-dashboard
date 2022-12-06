@@ -56,7 +56,7 @@ function displayCurrentWeather(data) {
   cityName.textContent = data.name + " " + dayjs().format("ddd MM/DD/YYYY");
   temp.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
   humidity.textContent = "Humidity: " + data.main.humidity + "%";
-  wind.textContent = "wind: " + data.wind.speed + " MPH";
+  wind.textContent = "Wind: " + data.wind.speed + " MPH";
   $("#weatherIcon").attr("src", iconUrl);
 }
 // This takes the server side information gathered by server side APIs. shows it legibly, dynamically adds elements"
@@ -68,14 +68,14 @@ function displayForecastWeather(data) {
     let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
 
     let dateEl = document.createElement("li");
-    let tempEl = document.createElement("li");
     let iconEl = document.createElement("img");
+    let tempEl = document.createElement("li");
     let windEl = document.createElement("li");
     let humidityEl = document.createElement("li");
 
     dateEl.setAttribute("class", "removeRow");
-    tempEl.setAttribute("class", "removeRow");
     iconEl.setAttribute("class", "removeRow");
+    tempEl.setAttribute("class", "removeRow");
     windEl.setAttribute("class", "removeRow");
     humidityEl.setAttribute("class", "removeRow");
 
@@ -83,9 +83,9 @@ function displayForecastWeather(data) {
     let date = moment(dateString);
 
     dateEl.textContent = date.format("ddd MM/DD/YYYY");
-    tempEl.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
     iconEl.setAttribute("src", iconUrl);
-    windEl.textContent = "wind: " + data.list[i].wind.speed + " MPH";
+    tempEl.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
+    windEl.textContent = "Wind: " + data.list[i].wind.speed + " MPH";
     humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
 
     $("#forecast" + i).append(dateEl);
