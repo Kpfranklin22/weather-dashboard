@@ -43,6 +43,7 @@ function getCity() {
     })
     .then((data) => {
       console.log(data);
+      $(".removeRow").remove();
       displayForecastWeather(data);
     });
 }
@@ -72,6 +73,12 @@ function displayForecastWeather(data) {
     let windEl = document.createElement("li");
     let humidityEl = document.createElement("li");
 
+    dateEl.setAttribute("class", "removeRow");
+    tempEl.setAttribute("class", "removeRow");
+    iconEl.setAttribute("class", "removeRow");
+    windEl.setAttribute("class", "removeRow");
+    humidityEl.setAttribute("class", "removeRow");
+
     let dateString = data.list[i].dt_txt;
     let date = moment(dateString);
 
@@ -96,7 +103,7 @@ function saveToLS(data) {
 function createHistoryBtn() {
   for (var i = 0; i < localStorage.length; i++) {
     const btn = document.createElement("button");
-    btn.setAttribute("class", "historyBtn btn btn-dark");
+    btn.setAttribute("class", "historyBtn btn btn-light");
     btn.setAttribute("id", localStorage.getItem(localStorage.key(i)));
     btn.innerHTML = localStorage.getItem(localStorage.key(i));
     historyContainer.appendChild(btn);

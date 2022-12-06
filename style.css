@@ -1,1 +1,12 @@
-
+html{
+    background-color: beige;
+}
+body{
+    padding:5%;
+    margin:auto;
+    background-color: beige;
+}
+ul {
+    list-style-type:none;
+    padding:5%;
+}
