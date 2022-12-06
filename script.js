@@ -55,7 +55,7 @@ function displayCurrentWeather(data) {
   let iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
   cityName.textContent = data.name + " " + dayjs().format("ddd MM/DD/YYYY");
   temp.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
-  humidity.textContent = "Humidity: " + data.main.humidity + " %";
+  humidity.textContent = "Humidity: " + data.main.humidity + "%";
   wind.textContent = "wind: " + data.wind.speed + " MPH";
   $("#weatherIcon").attr("src", iconUrl);
 }
@@ -86,7 +86,7 @@ function displayForecastWeather(data) {
     tempEl.textContent = "Temperature: " + fahrenheit.toFixed(2) + " °F";
     iconEl.setAttribute("src", iconUrl);
     windEl.textContent = "wind: " + data.list[i].wind.speed + " MPH";
-    humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + " %";
+    humidityEl.textContent = "Humidity: " + data.list[i].main.humidity + "%";
 
     $("#forecast" + i).append(dateEl);
     $("#forecast" + i).append(tempEl);
